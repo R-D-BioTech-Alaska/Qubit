@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import numpy as np
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library.standard_gates import XGate, ZGate, CXGate, RZGate
