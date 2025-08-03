@@ -2,12 +2,12 @@
 
 # Qubit: HybridQubit & Cubit Classes
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) ![Python](https://img.shields.io/badge/python-3.7%2B-blue)  ![Qiskit](https://img.shields.io/badge/Qiskit-1.4.2-orange)  ![Qiskit Aer](https://img.shields.io/badge/Qiskit_Aer-0.15.1-green)  ![GitHub Stars](https://img.shields.io/github/stars/R-D-BioTech-Alaska/Qubit?style=social)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) ![Python](https://img.shields.io/badge/python-3.7%2B-blue) ![Qiskit](https://img.shields.io/badge/Qiskit-1.4.2-orange) ![Qiskit Aer](https://img.shields.io/badge/Qiskit_Aer-0.15.1-green) ![GitHub Stars](https://img.shields.io/github/stars/R-D-BioTech-Alaska/Qubit?style=social)
 
-Welcome to **Qubit**, a Python toolkit for quantum logic, supporting both Qiskit-based simulation and direct CPU statevector emulation. This repository provides two complete, fully documented classes:
+Welcome to **Qubit**, a Python toolkit for quantum logic, supporting both Qiskit-based simulation and direct CPU statevector emulation. This repository provides two robust, feature-complete classes:
 
-* **HybridQubit** (`Qubit.py`): Qiskit/Aer-powered, statevector-level logic with logical subspaces, custom noise, hidden storage, and custom unitaries.
-* **Cubit** (`Cubit.py`): Fast, pure-NumPy logical qubit class, allowing all quantum logic on classical CPUs with no Qiskit or QPU dependency—built for AI/ML, QELM, and more.
+* **HybridQubit** (`Qubit.py`): Statevector-level quantum logic powered by Qiskit/Aer, with logical subspaces, engineered noise, amplitude storage, and full custom unitaries.
+* **Cubit** (`Cubit.py`): A pure-NumPy, high-speed logical qubit class, allowing advanced quantum operations on any classical CPU—no Qiskit or hardware dependencies required. Designed for AI/ML integration, QELM, and rapid development.
 
 ---
 
@@ -30,33 +30,31 @@ Welcome to **Qubit**, a Python toolkit for quantum logic, supporting both Qiskit
 
 ## Overview
 
-In modern quantum computing, a qubit is typically two-dimensional (|0⟩, |1⟩). However, real systems can leak into extra dimensions, and many advanced AI/ML or simulation pipelines need CPU-only access, or classical-quantum hybrid architectures.
+Quantum computing relies on the flexible, powerful properties of qubits—quantum bits that exist in superposition and can interact in high-dimensional spaces. Real quantum systems often require hybrid or classical-quantum workflows. **Qubit** provides two complete approaches:
 
-This toolkit provides both approaches:
-
-* **HybridQubit** (Qiskit backend, in `Qubit.py`): Operates with Qiskit’s AerSimulator for full statevector fidelity, custom logical/hidden subspaces, engineered quantum noise, and all the advanced quantum logic you expect.
-* **Cubit** (CPU backend, in `Cubit.py`): Replicates the same logic—superposition, phase, noise, subspace storage—purely in NumPy, enabling "quantum logic" as a class in any classical Python environment, with no Qiskit or hardware dependency.
+* **HybridQubit** (Qiskit/Aer backend): Operates with Qiskit’s simulator for full quantum fidelity, supporting custom logical/hidden subspaces, noise engineering, and programmable quantum logic.
+* **Cubit** (CPU backend): Brings the same logical and mathematical operations—superposition, measurement, noise, subspace storage—directly to NumPy arrays, for 100% QPU-independent quantum logic. Cubit is ideal for AI/ML, simulation, and anywhere Qiskit isn’t practical.
 
 ---
 
 ## Features
 
-* **Arbitrary-Dimensional Qubits**: Any number of basis states (2+), not just binary.
-* **Custom Logical Subspaces**: Choose which basis states act as your “logical” |0> and |1>.
-* **Amplitude Storage/Retrieval**: Hide, recover, or manipulate information in hidden quantum states.
-* **Noise & Decoherence Models**: Add phase noise, depolarizing noise, or build your own.
-* **Logical Operations**: Logical X, Z, arbitrary unitaries, measurement, and more.
-* **Backends**:
+* **Arbitrary-Dimensional Qubits**: Work with standard qubits (2D) or extend to multi-level quantum systems (qudits).
+* **Logical Subspace Selection**: Assign any basis states to act as logical |0⟩ and |1⟩.
+* **Amplitude Storage/Retrieval**: Move and recover information between logical and hidden subspaces.
+* **Comprehensive Noise/Decoherence**: Apply phase noise, depolarizing noise, amplitude damping, and more.
+* **Full Logical Operations**: Logical X, Z, Hadamard, Rx, Ry, Rz, custom unitaries, and advanced measurement routines.
+* **Flexible Backends**:
 
-  * Qiskit/Aer-powered (`HybridQubit`)
-  * Pure NumPy, CPU-only (`Cubit`)
+  * Qiskit/Aer-powered simulation (HybridQubit)
+  * Pure-CPU, NumPy-only simulation (Cubit)
 
 ---
 
 ## Installation & Requirements
 
-* **HybridQubit:** Python 3.7+, Qiskit, NumPy
-* **Cubit:** Python 3.7+, NumPy only
+**HybridQubit:** Python 3.7+, Qiskit, NumPy
+**Cubit:** Python 3.7+, NumPy
 
 ```bash
 pip install qiskit numpy
@@ -75,117 +73,82 @@ cd Qubit
 
 ## Usage: Getting Started
 
-Both classes offer a very similar interface. Below you’ll find a quick-start guide for each.
+The classes offer a unified, simple interface. Here are quick-start examples:
 
 ### HybridQubit (Qiskit/Aer Mode)
 
-This class provides a **real quantum simulation** using the Qiskit AerSimulator.
-
-**Typical use case:**
-You want to test quantum logic and advanced subspace tricks using a real quantum backend, with all the features of Qiskit (visualization, noise, transpilation, etc).
+Uses Qiskit’s simulator for real quantum state fidelity, with all Qiskit features available.
 
 ```python
 from Qubit import HybridQubit
 
-# Create a 4D hybrid qubit (supports hidden subspaces)
 qubit = HybridQubit(dimension=4, logical_zero_idx=0, logical_one_idx=1, name="DemoHybrid")
-
-# Check the full quantum statevector
 print("Initial state:", qubit.get_statevector())
-
-# Apply a logical X (swap |0⟩ and |1⟩)
 qubit.apply_logical_x()
 print("After X:", qubit.get_statevector())
-
-# Store amplitude in a hidden state (e.g., index 2)
 qubit.store_amplitude_in_subspace(target_subspace_idx=2)
-
-# Retrieve it later back to the logical subspace
 qubit.retrieve_amplitude_from_subspace(source_subspace_idx=2)
-
-# Apply quantum noise
 qubit.apply_noise_to_subspace(gamma=0.05)
-
-# Logical measurement (returns 0 or 1)
 result = qubit.measure_logical()
 print("Logical measurement:", result)
 ```
-
-See [Qubit.py](Qubit.py) for the full class reference.
 
 ---
 
 ### Cubit (Pure CPU Mode)
 
-This class allows you to use **all the same quantum logic, purely on a CPU**, with no Qiskit required. Ideal for quantum-inspired AI, simulation, or when you want *true QPU independence*.
-
-**Typical use case:**
-You want to build/experiment with quantum state logic, but deploy it *everywhere*—on laptops, clusters, in QELM or hybrid AI pipelines, and not just where Qiskit is available.
+All quantum logic, direct on CPU. No external dependencies beyond NumPy.
 
 ```python
 from Cubit import Cubit
 
-# Create a 4D Cubit (identical logic as HybridQubit)
 cubit = Cubit(dimension=4, logical_zero_idx=0, logical_one_idx=1, name="DemoCubit")
-
-# Direct statevector access (NumPy)
 print("Initial state:", cubit.state)
-
-# Apply logical operations
 cubit.apply_logical_x()
 print("After X:", cubit.state)
-
-# Hide/retrieve quantum information
 cubit.store_amplitude_in_subspace(2)
 cubit.retrieve_amplitude_from_subspace(2)
-
-# Add phase noise to hidden states
 cubit.apply_phase_noise(gamma=0.03)
-
-# Logical measurement (simulated quantum measurement)
 result = cubit.measure_logical()
 print("Logical measurement:", result)
 ```
-
-See [Cubit.py](Cubit.py) for a full class and API reference.
 
 ---
 
 ## Class Interface & Methods
 
-Both `HybridQubit` and `Cubit` expose nearly identical methods and logic:
+Both classes expose nearly identical method sets for logical and subspace quantum operations:
 
-* `get_statevector()` or `.state`
-* `apply_logical_x()`, `apply_logical_z()`
-* `store_amplitude_in_subspace()`, `retrieve_amplitude_from_subspace()`
-* `apply_noise_to_subspace()` / `apply_phase_noise()`
-* `measure_logical()`
-* And more!
+* Statevector access: `.get_statevector()` or `.state`
+* Logical operations: `.apply_logical_x()`, `.apply_logical_z()`, `.apply_h()`, `.apply_rx()`, etc.
+* Subspace manipulation: `.store_amplitude_in_subspace()`, `.retrieve_amplitude_from_subspace()`
+* Noise models: `.apply_noise_to_subspace()` / `.apply_phase_noise()`, `.apply_amplitude_damping()`, `.apply_depolarizing()`
+* Measurement: `.measure_logical()`, `.measure_full()`, `.measure_multiple_shots()`
 
-Full documentation for each method is in the class files.
+See each class file for full details.
 
 ---
 
 ## Advanced Techniques
 
-* **High-Dimensional Quantum Logic**: Use `dimension > 2` for qudit, error-mitigating, or multi-level experiments.
-* **Hybrid Classical-Quantum AI**: Plug Cubit directly into QELM, AI, or hybrid pipelines for quantum-inspired processing.
-* **Custom Noise Models**: Extend noise/decoherence to simulate realistic environments or train for robustness.
+* **Qudit Experiments**: Use higher dimensions for advanced simulation, error models, or logical redundancy.
+* **Classical-Quantum AI**: Use Cubit with QELM or similar AI pipelines—enabling quantum-inspired models without hardware.
+* **Noise Calibration**: Simulate real hardware environments by calibrating Cubit noise to real QPU specs.
 
 ---
 
 ## Troubleshooting & Common Pitfalls
 
-* **Dependencies**: HybridQubit needs Qiskit; Cubit only needs NumPy.
-* **Indices/Dimension**: Invalid logical or subspace indices raise errors for safety.
-* **Normalization**: Both classes auto-normalize, but direct amplitude edits require caution.
-* **State Access**: HybridQubit uses Qiskit’s statevector, Cubit exposes raw NumPy arrays for speed.
+* **Dependencies**: HybridQubit requires Qiskit; Cubit requires only NumPy.
+* **Indices/Dimensions**: All basis state, logical, and subspace indices are checked for safety—invalid choices raise errors.
+* **Normalization**: State normalization is handled automatically after all operations.
+* **Direct State Access**: HybridQubit uses Qiskit’s internal statevectors; Cubit uses direct NumPy arrays for speed and transparency.
 
 ---
 
 ## Contributing
 
-Fork, branch, and submit a pull request. Open issues for bugs or feature requests—new modules (QPU, GPU, etc.) encouraged!
+Fork, branch, and open a pull request. Issues and feature requests are welcome—multi-qubit support and new modules encouraged.
 
 ---
 
