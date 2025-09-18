@@ -155,5 +155,3 @@ Fork, branch, and open a pull request. Issues and feature requests are welcomeâ€
 ## License
 
 MIT License. See [LICENSE](LICENSE).
-
----
