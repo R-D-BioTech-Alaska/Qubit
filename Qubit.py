@@ -38,9 +38,6 @@ class HybridQubit:
         self.circuit = QuantumCircuit(self.num_qubits, name=self.name)
         # We'll use AerSimulator statevector by default (for now)
         self.backend = AerSimulator(method="statevector")
-
-        # By default, set the system to the logical |0_L>
-        # which is the basis state: self.logical_zero_idx
         self._initialize_to_basis_state(self.logical_zero_idx)
 
     def _initialize_to_basis_state(self, basis_idx: int) -> None:
