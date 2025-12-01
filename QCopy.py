@@ -1,5 +1,5 @@
-### New module test class
 
+#This is a theoretical method to copy a qubit prior to reading it, making an infinite loop qubit.
 from __future__ import annotations
 
 from typing import Optional, List, Tuple
