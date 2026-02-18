@@ -1,3 +1,7 @@
+
+# New version soon
+
+
 import numpy as np
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library.standard_gates import XGate, ZGate, CXGate, RZGate
