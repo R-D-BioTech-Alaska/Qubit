@@ -6,7 +6,7 @@
 
 ## Distributed Quantum Channels for Elastic QELM Intelligence
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: PolyForm Strict 1.0.0](https://img.shields.io/badge/License-PolyForm%20Strict%201.0.0-orange.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.7%2B-blue)
 ![Qiskit](https://img.shields.io/badge/Qiskit-1.4.2-orange)
 ![Qiskit Aer](https://img.shields.io/badge/Qiskit_Aer-0.15.1-green)
@@ -389,7 +389,7 @@ It would:
 
 ## Contributing
 
-Fork, branch, and open a pull request. Issues and feature requests are welcome.
+Issues, feature requests, benchmark results, and documentation corrections are welcome. Code modifications, forks containing modified code, and pull requests require prior written permission under the current source license.
 
 Areas of interest include:
 
@@ -406,4 +406,4 @@ Areas of interest include:
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+Qubit is source-available under the **PolyForm Strict License 1.0.0**. Noncommercial use is permitted. Distribution, modification, derivative works, sublicensing, transfer, and commercial use require separate written permission. See [LICENSE](LICENSE), [LICENSE_HISTORY.md](LICENSE_HISTORY.md), and [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md). Earlier versions lawfully obtained under MIT remain under their original MIT terms.
